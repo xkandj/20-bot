@@ -1,0 +1,66 @@
+version: "2.0"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - mood_great
+  - mood_unhappy
+  - thanks
+  - bot_challenge
+  - concept_explain
+  - market_info
+  - bonus_history
+  - bonus_rule
+  - fee_rule
+  - trade_rule
+  - trade_advice
+  - order_fail
+  - complain
+
+entities:
+  - market_index
+
+responses:
+  utter_greet:
+  - text: "您好，我是您的数字助手，为您解答证券基金相关信息"
+
+  utter_cheer_up:
+  - text: "可爱的小老虎，希望使您感觉好些"
+    image: "https://i.imgur.com/nGF1K8f.jpg"
+
+  utter_did_that_help:
+  - text: "解答是否满意？还有其他问题吗"
+
+  utter_happy:
+  - text: "好的，继续加油"
+
+  utter_goodbye:
+  - text: "再见"
+
+  utter_iamabot:
+  - text: "我是您的数字助手"
+
+  utter_thanks:
+  - text: "不用谢，希望能帮助到您"
+
+  utter_what_is_fund:
+  - text: "基金是指通过公开发售基金份额筹集资金，由基金托管人托管，基金管理人管理和运作的一种利益共享、风险共担的集合投资方式。\n简单来说，你把资金交给基金公司，基金公司凭借专业的投资知识与技能获取收益，其中基金管理人负责让资产保值增值，基金托管人则负责资产保管、交易监督等等。"
+
+  utter_trade_advice:
+  - text: 基金是高风险产品，建议您先学习基金知识，结合自身情况再进行交易，您可以查看以下链接进行学习。
+
+  utter_concept_explain:
+  - text: 解释
+
+  utter_fee_search:
+  - text: 撒大
+
+actions:
+  - action_global_indexs
+
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
