@@ -1,0 +1,28 @@
+[2022-01-24 04:32:36,031] [1] [DEBUG] - actions.run (actions.py:98) - [action]:action_tell_time
+[2022-01-24 04:32:36,032] [1] [DEBUG] - actions.run (actions.py:108) - [entity value:time]None
+[2022-01-24 04:40:07,996] [1] [DEBUG] - actions.run (actions.py:141) - [action]action_tell_weather
+[2022-01-24 04:40:07,996] [1] [INFO] - actions.run (actions.py:157) - extract local entity: 工商银行
+[2022-01-24 04:40:08,075] [1] [ERROR] - seniverse.get_weather_by_day (seniverse.py:60) - 'results'
+[2022-01-24 04:40:08,075] [1] [ERROR] - seniverse.get_weather_by_day (seniverse.py:61) - You don't have access to data of this city.
+[2022-01-24 04:40:08,075] [1] [DEBUG] - seniverse.get_weather_by_day (seniverse.py:62) - weather return: {}
+[2022-01-24 04:40:08,075] [1] [INFO] - actions.run (actions.py:159) - get weather info: {}
+[2022-01-24 04:40:15,008] [1] [DEBUG] - actions.run (actions.py:98) - [action]:action_tell_time
+[2022-01-24 04:40:15,008] [1] [DEBUG] - actions.run (actions.py:108) - [entity value:time]None
+[2022-01-24 04:44:20,328] [1] [DEBUG] - actions.run (actions.py:141) - [action]action_tell_weather
+[2022-01-24 04:44:20,328] [1] [INFO] - actions.run (actions.py:157) - extract local entity: 武汉
+[2022-01-24 04:44:20,630] [1] [DEBUG] - seniverse.get_weather_by_day (seniverse.py:62) - weather return: {'city_name': '武汉', 'daily': [{'date': '2022-01-24', 'text_day': '阴', 'code_day': '9', 'text_night': '阴', 'code_night': '9', 'high': '4', 'low': '2', 'rainfall': '0.00', 'precip': '0.00', 'wind_direction': '北', 'wind_direction_degree': '0', 'wind_speed': '23.4', 'wind_scale': '4', 'humidity': '92'}]}
+[2022-01-24 04:44:20,630] [1] [INFO] - actions.run (actions.py:159) - get weather info: {'city_name': '武汉', 'daily': [{'date': '2022-01-24', 'text_day': '阴', 'code_day': '9', 'text_night': '阴', 'code_night': '9', 'high': '4', 'low': '2', 'rainfall': '0.00', 'precip': '0.00', 'wind_direction': '北', 'wind_direction_degree': '0', 'wind_speed': '23.4', 'wind_scale': '4', 'humidity': '92'}]}
+[2022-01-24 04:55:29,373] [1] [DEBUG] - actions.run (actions.py:98) - [action]:action_tell_time
+[2022-01-24 04:55:29,373] [1] [DEBUG] - actions.run (actions.py:108) - [entity value:time]None
+[2022-01-24 14:30:17,069] [19968] [ERROR] - seniverse.<module> (seniverse.py:17) - No module named 'actions.private'
+[2022-01-24 14:30:17,071] [19968] [ERROR] - seniverse.<module> (seniverse.py:18) - Please register https://www.seniverse.com get KEY
+[2022-01-24 14:31:54,708] [18532] [ERROR] - seniverse.<module> (seniverse.py:17) - No module named 'actions.private'
+[2022-01-24 14:31:54,710] [18532] [ERROR] - seniverse.<module> (seniverse.py:18) - Please register https://www.seniverse.com get KEY
+[2022-01-24 14:32:32,128] [16716] [ERROR] - seniverse.<module> (seniverse.py:17) - No module named 'actions.private'
+[2022-01-24 14:32:32,130] [16716] [ERROR] - seniverse.<module> (seniverse.py:18) - Please register https://www.seniverse.com get KEY
+[2022-01-24 14:32:50,748] [17128] [ERROR] - seniverse.<module> (seniverse.py:17) - No module named 'actions.private'
+[2022-01-24 14:32:50,751] [17128] [ERROR] - seniverse.<module> (seniverse.py:18) - Please register https://www.seniverse.com get KEY
+[2022-01-24 14:40:31,624] [17972] [DEBUG] - actions.run (actions.py:239) - relative_date
+[2022-01-24 14:40:31,624] [17972] [DEBUG] - actions.run (actions.py:240) - 现在
+[2022-01-24 14:40:31,624] [17972] [DEBUG] - actions.run (actions.py:241) - company
+[2022-01-24 14:40:31,624] [17972] [DEBUG] - actions.run (actions.py:242) - 工商银行

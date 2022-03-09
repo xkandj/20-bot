@@ -1,0 +1,17 @@
+version: "3.0"
+stories:
+- story: stock
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: consult_stock
+  - action: action_consult_stock
+  - action: utter_world_index
+  - action: action_fetch_index
+
+- story: world index
+  steps:
+  - intent: world_index
+  - action: action_query_index
+#  - action: utter_world_index
+#  - action: action_query_index
