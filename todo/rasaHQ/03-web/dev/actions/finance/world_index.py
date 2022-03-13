@@ -61,27 +61,28 @@ class WorldIndex:
         content = self.read_file(file=self.world_index_file)
         return "编号 名称\n" + "".join(content)
 
-    def fetch_index(self, x: str) -> str:
+    def fetch_index(self, date: str, name: str) -> str:
         """根据输入或者槽值查询指数信息
 
         Args:
-            x (str): 输入或者槽值
+            date (str): 日期
+            name (str): market name
 
         Returns:
             str: 查询结果
         """
         params = self.parse_params()
 
-        x = x.strip()
+        date = date.strip()
 
-        if x.isdigit():
-            ids = x
+        if date.isdigit():
+            ids = date
         else:
-            ids = self.get_index_ids(table_file=self.world_index_file, name=x)
+            ids = self.get_index_ids(table_file=self.world_index_file, name=date)
 
         if ids is None:
             content = "暂只支持查询列表中的指数信息"
-            logger.error(f"查找信息:{str(x)}, 匹配id:{str(ids)}")
+            logger.error(f"查找信息:{str(date)}, 匹配id:{str(ids)}")
         else:
             content = self.get_content(ids)
         return "指数查询结果如下\n" + content

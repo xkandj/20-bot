@@ -53,7 +53,8 @@ class QueryWorldIndex(Action):
 
         # 正常逻辑处理
         # 调用api，获取结果
-        response_text = WorldIndex().fetch_index()
+        # 日期先转，失败则是当前时间点
+        response_text = WorldIndex().fetch_index(date=market_date, name=market)
 
         dispatcher.utter_message(text=market)
 
