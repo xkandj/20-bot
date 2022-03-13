@@ -14,4 +14,4 @@ stories:
   - intent: world_index
   - action: action_query_index
   - action: utter_world_index
-  - action: action_query_index
+#  - action: action_query_index

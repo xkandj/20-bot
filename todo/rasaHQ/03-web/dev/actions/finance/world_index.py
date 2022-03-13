@@ -70,6 +70,8 @@ class WorldIndex:
         Returns:
             str: 查询结果
         """
+        params = self.parse_params()
+
         x = x.strip()
 
         if x.isdigit():
@@ -119,6 +121,8 @@ class WorldIndex:
                     ret += f"数据更新时间：{v.get('uptime')}\n"
         return ret
 
+    def parse_params(self):
+        ...
 
 class WorldIndexHistory:
     def __init__(self):
