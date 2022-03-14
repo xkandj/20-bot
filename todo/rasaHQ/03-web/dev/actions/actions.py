@@ -26,6 +26,7 @@ class SearchWorldIndex(Action):
 
         return []
 
+
 class QueryWorldIndex(Action):
     def name(self) -> Text:
         return "action_query_index"
@@ -44,9 +45,8 @@ class QueryWorldIndex(Action):
             market_date = ass_dt.get_date_by_value(duck_date)
 
         # market
-        market = next(tracker.get_latest_entity_values("market"), None)
-        print(market)
-
+        market_name = next(tracker.get_latest_entity_values("market"), None)
+        print(market_name)
 
         # 不正常逻辑处理
         # 不正常的逻辑有，1. 没时间（如果获取不到日期怎么办？）， 2. 没市场， 3. 都没，
@@ -55,14 +55,21 @@ class QueryWorldIndex(Action):
         # 正常逻辑处理
         # 调用api，获取结果
 
-
         # todo 市场处理，如果找不到市场，则直接返回提示（可以查下列市场），不用再查询接口，否则查询指定接口
-        ...
+        market_id = Tool.convert_market_id(market_name)
+        if market_id is None:
+            text = "可以查看如下全球指数情况\n"
+            text += Tool.get_world_index_name()
+            dispatcher.utter_message(text=text)
+            return []
+        else:
+            ...
 
         # todo 时间处理，如果是当天，则调用index api, 否则调用index history api
         # history 日期格式是20201228
         try:
             date = market_date.strftime("%Y%m%d")
+
         except:
             date = datetime.datetime.now().strftime("%Y%m%d")
 

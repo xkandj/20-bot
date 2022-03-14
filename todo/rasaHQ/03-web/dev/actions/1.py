@@ -2,22 +2,43 @@ import json
 
 import pandas as pd
 
-a = [["1","2"],["s"],["指纹"]]
-x = json.dumps(a)
-x2 = json.loads(x)
-aa = [x for x in a]
-bb = a.copy()
-a.append("x")
-a[1].append(("as"))
-print(a)
-print(bb)
-print(aa)
-print(x2)
+# a = [["1","2"],["s"],["指纹"]]
+# x = json.dumps(a)
+# x2 = json.loads(x)
+# aa = [x for x in a]
+# bb = a.copy()
+# a.append("x")
+# a[1].append(("as"))
+# print(a)
+# print(bb)
+# print(aa)
+# print(x2)
+# exit()
+
+def check(s):
+    print(s)
+    # print(s.a)
+    # print(s.c)
+# df = pd.DataFrame({'a': ["sdada", "saaaaaaaa", "中文撒大撒大"], 'b': [4, 5, 6]})
+df = pd.DataFrame({'a': ["sdada", "saaaaaaaa", "中文撒大撒大"]})
+# print(df)
+# print("\n")
+df["c"] = "sd"
+
+x = df.apply(check)
+print(x)
 exit()
+df2 = df[df.apply(lambda x: x.a.str.contains("sd"), axis=1)]
+print(df2)
 
+exit()
+print(df)
+market_name = "sdada11"
+a = df[df.a.str.contains(market_name)]
+print(a)
 
-df = pd.DataFrame({'a': [1, 2, 3], 'b': [4, 5, 6]})
-ser1 = pd.Series(['e', 'f', 'g'], index=[1, 2, 3])
+exit()
+# ser1 = pd.Series(['e', 'f', 'g'], index=[1, 2, 3])
 # print(ser1.index)
 # ser1.
 # ser2 = pd.Series(ser1, index=[0,1,2])
