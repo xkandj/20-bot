@@ -110,7 +110,7 @@ class Indexes():
 gi = Indexes()
 a = gi.query_global_index2("1244")
 # print(a)
-print(231)
+# print(231)
 # gi.get_index_info('')
 # gi.get_index_names()
 

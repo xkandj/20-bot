@@ -1,3 +1,4 @@
+import datetime
 from typing import Text, Dict, Any, List
 
 from rasa_sdk import Action, Tracker
@@ -33,14 +34,14 @@ class QueryWorldIndex(Action):
                   tracker: Tracker,
                   domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
-        market_date = next(tracker.get_latest_entity_values("market_date"), None)
+        market_date_tmp = next(tracker.get_latest_entity_values("market_date"), None)
 
-        if market_date:
-            date = ass_dt.get_date_by_entity(market_date)
+        if market_date_tmp:
+            market_date = ass_dt.get_date_by_entity(market_date_tmp)
         else:
             # DucklingEntityExtractor
             duck_date = next(tracker.get_latest_entity_values("time"), None)
-            date = ass_dt.get_date_by_value(duck_date)
+            market_date = ass_dt.get_date_by_value(duck_date)
 
         # market
         market = next(tracker.get_latest_entity_values("market"), None)
@@ -53,7 +54,18 @@ class QueryWorldIndex(Action):
 
         # 正常逻辑处理
         # 调用api，获取结果
-        # 日期先转，失败则是当前时间点
+
+
+        # todo 市场处理，如果找不到市场，则直接返回提示（可以查下列市场），不用再查询接口，否则查询指定接口
+        ...
+
+        # todo 时间处理，如果是当天，则调用index api, 否则调用index history api
+        # history 日期格式是20201228
+        try:
+            date = market_date.strftime("%Y%m%d")
+        except:
+            date = datetime.datetime.now().strftime("%Y%m%d")
+
         response_text = WorldIndex().fetch_index(date=market_date, name=market)
 
         dispatcher.utter_message(text=market)

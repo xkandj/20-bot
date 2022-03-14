@@ -71,7 +71,7 @@ class WorldIndex:
         Returns:
             str: 查询结果
         """
-        params = self.parse_params()
+        params = self.parse_params(date, name)
 
         date = date.strip()
 
@@ -122,7 +122,11 @@ class WorldIndex:
                     ret += f"数据更新时间：{v.get('uptime')}\n"
         return ret
 
-    def parse_params(self):
+    def parse_params(self, date: str, name: str):
+
+        # 日期先转，失败则是当前时间点
+        try:
+            da
         ...
 
 class WorldIndexHistory:
@@ -132,8 +136,18 @@ class WorldIndexHistory:
         # api定义
         self.api = NowApi()
         self.api_params = self.api.params
-        self.api_params["app"] = "finance.globalindex"
+        self.api_params["app"] = "finance.globalindex_history"
 
+        """
+        inxId	string	是	指数编号
+htType	string	是	数据类型
+HT1D: 历史1天级别
+HT1M: 历史1分钟级别
+dateYmd	date	是	数据时间范围(年月日)
+单天: 20201228
+多天区段: 20201228-20201230 (需付费)
+最多支持365天范围段
+        """
     @staticmethod
     def read_file(file: str) -> []:
         """读取全球指数文件，返回指数列表
