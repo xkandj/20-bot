@@ -18,7 +18,7 @@ class Indexes():
 
     @staticmethod
     def read_global_index_txt() -> list:
-        file = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data/global_index.txt")
+        file = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data/world_index.txt")
         with open(file, encoding="utf-8") as f:
             content = f.readlines()
 
@@ -262,7 +262,7 @@ a = gi2.query_global_index2("sh513050")
 # print(a)
 
 if __name__ == "__main__":
-    file = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data/global_index.txt")
+    file = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data/world_index.txt")
     # df = pd.read_csv(file, sep=" ", header=None)
     # df.columns = ["编号", "名称"]
     # df = df.set_index("编号")
@@ -278,7 +278,7 @@ if __name__ == "__main__":
     # print(df)
 
     # print(df)
-    # file = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data/global_index.txt")
+    # file = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data/world_index.txt")
     # with open(file, encoding="utf-8") as f:
     #     content = f.readlines()
     #

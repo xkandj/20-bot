@@ -1,5 +1,5 @@
 import pandas as pd
-df = pd.read_table("global_index.txt", header=None, sep=" ")
+df = pd.read_table("world_index.txt", header=None, sep=" ")
 df.columns = ["id", "name"]
 print(df.head())
 df.to_csv("global_index.csv", index=None)
@@ -108,7 +108,7 @@ a = "123q"
 print(a.isdigit())
 exit()
 name = "指数"
-file = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data/global_index.txt")
+file = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data/world_index.txt")
 df = pd.read_table(file, header=None, sep="  ")
 # print(df)
 df.columns = ["id","name"]

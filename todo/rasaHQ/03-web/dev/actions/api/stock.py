@@ -28,7 +28,7 @@ class Stock:
         Returns:
             list: [str1, str2, ...]
         """
-        file = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data/global_index.txt")
+        file = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data/world_index.txt")
         with open(file, encoding="utf-8") as f:
             content = f.readlines()
 
@@ -45,7 +45,7 @@ class Stock:
         Returns:
             Any: None or frist id value
         """
-        file = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data/global_index.txt")
+        file = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data/world_index.txt")
         df = pd.read_table(file, sep="  ", header=None)
         df.columns = ["id", "name"]
         df_tmp = df[df.name.str.contains(name)]
@@ -167,7 +167,7 @@ class StockHis():
         Returns:
             list: [str1, str2, ...]
         """
-        file = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data/global_index.txt")
+        file = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data/world_index.txt")
         with open(file, encoding="utf-8") as f:
             content = f.readlines()
 
@@ -184,7 +184,7 @@ class StockHis():
         Returns:
             Any: None or frist id value
         """
-        file = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data/global_index.txt")
+        file = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data/world_index.txt")
         df = pd.read_table(file, sep="  ", header=None)
         df.columns = ["id", "name"]
         df_tmp = df[df.name.str.contains(name)]

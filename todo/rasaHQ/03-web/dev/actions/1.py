@@ -15,18 +15,24 @@ import pandas as pd
 # print(x2)
 # exit()
 
-def check(s):
-    print(s)
+def check(s, name):
+    # print(s)
     # print(s.a)
     # print(s.c)
-# df = pd.DataFrame({'a': ["sdada", "saaaaaaaa", "中文撒大撒大"], 'b': [4, 5, 6]})
-df = pd.DataFrame({'a': ["sdada", "saaaaaaaa", "中文撒大撒大"]})
+    # print(name)
+    if name.__contains__(s):
+        return True
+    return False
+df = pd.DataFrame({'a': ["sdadaa", "saaaaaaaa", "中文撒大撒大"], 'b': [4, 5, 6]})
+# df = pd.DataFrame({'a': ["sdada", "saaaaaaaa", "中文撒大撒大"]})
 # print(df)
 # print("\n")
-df["c"] = "sd"
+# df["c"] = "sd"
 
-x = df.apply(check)
+x = df["a"].apply(check, args=("sdada11",))
 print(x)
+print(x.empty)
+print(df[x].empty)
 exit()
 df2 = df[df.apply(lambda x: x.a.str.contains("sd"), axis=1)]
 print(df2)
