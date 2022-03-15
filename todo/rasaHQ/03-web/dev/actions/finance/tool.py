@@ -48,7 +48,7 @@ class Tool:
 if __name__ == "__main__":
     tool = Tool()
     id = tool.convert_market_id("上证指数")
-    print(id)
+    print(type(id), id)
     name = tool.get_world_index_name()
     print(name)
 

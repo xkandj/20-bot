@@ -2,8 +2,9 @@ import json
 from typing import Any
 
 import requests
-# from actions.constants import DEFAULT_TIMEOUT
-# from actions.utils.create_log import logger
+
+from actions.constants import DEFAULT_TIMEOUT
+from actions.utils.create_log import logger
 
 
 class NowApi:

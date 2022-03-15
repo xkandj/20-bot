@@ -5,6 +5,8 @@ from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 
 from actions.dt import ass_dt
+from actions.finance.tool import Tool
+from actions.finance.world_index import WorldIndex, WorldIndexHistory
 
 
 class SearchWorldIndex(Action):
@@ -28,6 +30,8 @@ class SearchWorldIndex(Action):
 
 
 class QueryWorldIndex(Action):
+    """query world index"""
+
     def name(self) -> Text:
         return "action_query_index"
 
@@ -55,26 +59,28 @@ class QueryWorldIndex(Action):
         # 正常逻辑处理
         # 调用api，获取结果
 
-        # todo 市场处理，如果找不到市场，则直接返回提示（可以查下列市场），不用再查询接口，否则查询指定接口
+        # 市场处理，如果找不到市场，则直接返回提示（可以查下列市场），不用再查询接口，否则查询指定接口
         market_id = Tool.convert_market_id(market_name)
         if market_id is None:
             text = "可以查看如下全球指数情况\n"
             text += Tool.get_world_index_name()
             dispatcher.utter_message(text=text)
             return []
-        else:
-            ...
 
-        # todo 时间处理，如果是当天，则调用index api, 否则调用index history api
-        # history 日期格式是20201228
+        # 时间处理
+        is_today = False
+        market_strftime = None
         try:
-            date = market_date.strftime("%Y%m%d")
-
-        except:
-            date = datetime.datetime.now().strftime("%Y%m%d")
-
-        response_text = WorldIndex().fetch_index(date=market_date, name=market)
-
-        dispatcher.utter_message(text=market)
-
+            market_strftime = market_date.strftime("%Y%m%d")
+        except Exception:
+            is_today = True
+        else:
+            if market_strftime == datetime.date.today().strftime("%Y%m%d"):
+                is_today = True
+        # 如果是当天，则调用index api, 否则调用index history api
+        if is_today:
+            response_text = WorldIndex().fetch_index(market_id)
+        else:
+            response_text = WorldIndexHistory().fetch_index(market_strftime, market_id)
+        dispatcher.utter_message(text=response_text)
         return []

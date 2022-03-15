@@ -1,91 +1,18 @@
 import json
-import os
-from typing import Any
 
-import pandas as pd
 from actions.api.nowapi import NowApi
-from actions.constants import ACTIONS_PATH
-from actions.utils.create_log import logger
 
 
 class WorldIndex:
     def __init__(self):
-        # 文件路径
-        self.world_index_file = os.path.join(ACTIONS_PATH, "world_index.txt")
         # api定义
         self.api = NowApi()
         self.api_params = self.api.params
         self.api_params["app"] = "finance.globalindex"
 
-    @staticmethod
-    def read_file(file: str) -> []:
-        """读取全球指数文件，返回指数列表
-
-        Args:
-            file (str): 文件路径
-
-        Returns:
-            list: [str1, str2, ...]
-        """
-        with open(file, encoding="utf-8") as f:
-            content = f.readlines()
-        return content
-
-    @staticmethod
-    def get_index_ids(table_file: str, name: str) -> Any:
-        """根据指数名称获取指数id
-
-        Args:
-            table_file (str): 文件路径
-            name (str): 指数名称
-
-        Returns:
-            Any: None or frist id value
-        """
-        df = pd.read_table(table_file, sep="  ", header=None)
-        df.columns = ["id", "name"]
-        df_tmp = df[df.name.str.contains(name)]
-
-        if df_tmp.empty:
-            # todo 应该支持筛选 输入大于指数名称（被包含），如输入“上证指数数”，文件中的“上证指数”也应符合要求
-            return None
-        else:
-            return str(df_tmp.id.values[0])
-
-    def query_world_index(self) -> str:
-        """查询已收录的全球指数，从文件中读取
-
-        Returns:
-            str: 查询结果
-        """
-        content = self.read_file(file=self.world_index_file)
-        return "编号 名称\n" + "".join(content)
-
-    def fetch_index(self, date: str, name: str) -> str:
-        """根据输入或者槽值查询指数信息
-
-        Args:
-            date (str): 日期
-            name (str): market name
-
-        Returns:
-            str: 查询结果
-        """
-        params = self.parse_params(date, name)
-
-        date = date.strip()
-
-        if date.isdigit():
-            ids = date
-        else:
-            ids = self.get_index_ids(table_file=self.world_index_file, name=date)
-
-        if ids is None:
-            content = "暂只支持查询列表中的指数信息"
-            logger.error(f"查找信息:{str(date)}, 匹配id:{str(ids)}")
-        else:
-            content = self.get_content(ids)
-        return "指数查询结果如下\n" + content
+    def fetch_index(self, id: str) -> str:
+        """根据输入或者槽值查询指数信息"""
+        return self.get_content(id)
 
     def get_content(self, ids: str) -> str:
         """根据指数id查询指数信息，调用api接口
@@ -122,109 +49,35 @@ class WorldIndex:
                     ret += f"数据更新时间：{v.get('uptime')}\n"
         return ret
 
-    def parse_params(self, date: str, name: str):
-
-        # 日期先转，失败则是当前时间点
-        try:
-            da
-        ...
 
 class WorldIndexHistory:
     def __init__(self):
-        # 文件路径
-        self.world_index_file = os.path.join(ACTIONS_PATH, "world_index.txt")
         # api定义
         self.api = NowApi()
         self.api_params = self.api.params
         self.api_params["app"] = "finance.globalindex_history"
+        # HT1D: 历史1天级别, HT1M 历史1分钟级别
+        self.api_params["htType"] = "HT1D"
 
-        """
-        inxId	string	是	指数编号
-htType	string	是	数据类型
-HT1D: 历史1天级别
-HT1M: 历史1分钟级别
-dateYmd	date	是	数据时间范围(年月日)
-单天: 20201228
-多天区段: 20201228-20201230 (需付费)
-最多支持365天范围段
-        """
-    @staticmethod
-    def read_file(file: str) -> []:
-        """读取全球指数文件，返回指数列表
-
-        Args:
-            file (str): 文件路径
-
-        Returns:
-            list: [str1, str2, ...]
-        """
-        with open(file, encoding="utf-8") as f:
-            content = f.readlines()
-        return content
-
-    @staticmethod
-    def get_index_ids(table_file: str, name: str) -> Any:
-        """根据指数名称获取指数id
-
-        Args:
-            table_file (str): 文件路径
-            name (str): 指数名称
-
-        Returns:
-            Any: None or frist id value
-        """
-        df = pd.read_table(table_file, sep="  ", header=None)
-        df.columns = ["id", "name"]
-        df_tmp = df[df.name.str.contains(name)]
-
-        if df_tmp.empty:
-            # todo 应该支持筛选 输入大于指数名称（被包含），如输入“上证指数数”，文件中的“上证指数”也应符合要求
-            return None
-        else:
-            return str(df_tmp.id.values[0])
-
-    def query_world_index(self) -> str:
-        """查询已收录的全球指数，从文件中读取
-
-        Returns:
-            str: 查询结果
-        """
-        content = self.read_file(file=self.world_index_file)
-        return "编号 名称\n" + "".join(content)
-
-    def fetch_index(self, x: str) -> str:
+    def fetch_index(self, ymd: str, id: str) -> str:
         """根据输入或者槽值查询指数信息
 
         Args:
-            x (str): 输入或者槽值
+            ymd (str): 时间yyyymmdd
+            id (str): market id
 
         Returns:
             str: 查询结果
         """
-        x = x.strip()
+        return  self.get_content(ymd, id)
 
-        if x.isdigit():
-            ids = x
-        else:
-            ids = self.get_index_ids(table_file=self.world_index_file, name=x)
-
-        if ids is None:
-            content = "暂只支持查询列表中的指数信息"
-            logger.error(f"查找信息:{str(x)}, 匹配id:{str(ids)}")
-        else:
-            content = self.get_content(ids)
-        return "指数查询结果如下\n" + content
-
-    def get_content(self, ids: str) -> str:
-        """根据指数id查询指数信息，调用api接口
-
-        Args:
-            ids (str): 指数id，接口支持接收类型int和str, 统一为str
-
-        Returns:
-            str: 查询结果，映射为中文格式
+    def get_content(self, ymd: str, id: str) -> str:
         """
-        self.api_params["inxids"] = ids
+        根据指数id查询指数信息，调用api接口
+        查询结果，映射为中文格式
+        """
+        self.api_params["inxId"] = id
+        self.api_params["dateYmd"] = ymd
         data = json.loads(self.api.get_data(self.api_params))
         success = data.get("success")
         text = data.get("text")
@@ -233,13 +86,18 @@ dateYmd	date	是	数据时间范围(年月日)
             ret = text
         else:
             ret = ""
-            lst = text.get("result").get("lists")
+            dt = text.get("result").get("dtAppend")
+            if dt is not None:
+                ret += f"指数编号是{dt.get('inxId')}，名称是{dt.get('inxNm')}"
+
+            lst = text.get("result").get("dtList")
             if lst is not None:
                 for _, v in lst.items():
-                    ret += f"版块：{v.get('typeid')}\n"
+                    ret += f"数据日期：{v.get('dateYmd')}\n"
+                    ret += f"今日开盘价：{v.get('openPrice')}\n"
+                    ret += f"今日收盘价：{v.get('closePrice')}\n"
                     ret += f"指数名称：{v.get('inxnm')}\n"
                     ret += f"昨日收盘价：{v.get('yesy_price')}\n"
-                    ret += f"今日开盘价：{v.get('open_price')}\n"
                     ret += f"当前价：{v.get('last_price')}\n"
                     ret += f"涨跌额：{v.get('rise_fall')}\n"
                     ret += f"涨跌幅：{v.get('rise_fall_per')}\n"
@@ -249,3 +107,20 @@ dateYmd	date	是	数据时间范围(年月日)
                     ret += f"成交额：{v.get('turnover')}(部分股指为0，以实际数据为准)\n"
                     ret += f"数据更新时间：{v.get('uptime')}\n"
         return ret
+
+"""
+dateYmd: "20201230",/*数据日期*/
+            openPrice: "3375.01",/*今日开盘价*/
+            closePrice: "3414.45",/*今日收盘价*/
+            yesyPrice: "3379.04",/*昨日收盘价*/
+            highPrice: "3414.45",/*今日最高价*/
+            lowPrice: "3374.42",/*今日最低价*/
+            changePrice: "35.41",/*涨跌额*/
+            changeMargin: "1.05",/*涨跌幅%*/
+            volume: "291023544",/*成交量*/
+            turnover: "377542352896"/*成交额 美股港股指无成交额*/
+"""
+
+if __name__ == "__main__":
+    wih = WorldIndexHistory()
+    wih.fetch_index("20220310", "1010")
