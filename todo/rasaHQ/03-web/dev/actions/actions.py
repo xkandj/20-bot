@@ -31,16 +31,14 @@ class SearchWorldIndex(Action):
 
 class QueryWorldIndex(Action):
     """query world index"""
-
     def name(self) -> Text:
         return "action_query_index"
 
     async def run(self, dispatcher: CollectingDispatcher,
                   tracker: Tracker,
                   domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-
+        # date
         market_date_tmp = next(tracker.get_latest_entity_values("market_date"), None)
-
         if market_date_tmp:
             market_date = ass_dt.get_date_by_entity(market_date_tmp)
         else:
@@ -50,23 +48,13 @@ class QueryWorldIndex(Action):
 
         # market
         market_name = next(tracker.get_latest_entity_values("market"), None)
-        print(market_name)
-
-        # 不正常逻辑处理
-        # 不正常的逻辑有，1. 没时间（如果获取不到日期怎么办？）， 2. 没市场， 3. 都没，
-        # 4. 没有结果的话启动utter，其他信息， 5. 有结果是否启动utter, 应该不启动
-
-        # 正常逻辑处理
-        # 调用api，获取结果
-
-        # 市场处理，如果找不到市场，则直接返回提示（可以查下列市场），不用再查询接口，否则查询指定接口
+        # 市场处理，如果找不到市场，则直接返回提示（可以查下列市场），不用再查询接口
         market_id = Tool.convert_market_id(market_name)
         if market_id is None:
             text = "可以查看如下全球指数情况\n"
             text += Tool.get_world_index_name()
             dispatcher.utter_message(text=text)
             return []
-
         # 时间处理
         is_today = False
         market_strftime = None
