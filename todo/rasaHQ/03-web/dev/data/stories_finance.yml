@@ -4,14 +4,12 @@ stories:
   steps:
   - intent: greet
   - action: utter_greet
-  - intent: consult_stock
-  - action: action_consult_stock
-  - action: utter_world_index
-  - action: action_fetch_index
+  - intent: query_stock
+  - action: action_query_stock
 
 - story: world index
   steps:
-  - intent: world_index
-  - action: action_query_index
-  - action: utter_world_index
-#  - action: action_query_index
+  - intent: greet
+  - action: utter_greet
+  - intent: query_world_index
+  - action: action_query_world_index
