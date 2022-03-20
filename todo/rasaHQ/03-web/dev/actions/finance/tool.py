@@ -39,7 +39,7 @@ class Tool:
         return False
 
     def get_world_index_name(self):
-        """ get world index name content"""
+        """ get world index name content """
         df = pd.read_table(self.world_index_path, sep=" ", header=None)
         df.columns = ["id", "name"]
         names = df.name.values
