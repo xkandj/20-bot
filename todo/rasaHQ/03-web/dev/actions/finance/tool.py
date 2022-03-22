@@ -10,6 +10,7 @@ class Tool:
     def __init__(self):
         # 文件路径
         self.world_index_path = os.path.join(ACTIONS_PATH, "data/world_index.txt")
+        self.stock_path = os.path.join(ACTIONS_PATH, "data/stock.csv")
 
     def convert_market_id(self, market_name: str) -> Any:
         """convert market name to market id
@@ -45,6 +46,37 @@ class Tool:
         names = df.name.values
         return "\n".join(names)
 
+    def convert_company_id(self, company_name: str) -> Any:
+        """convert company name to company id
+
+        Args:
+            company_name (str): market name
+
+        Returns:
+            str: company id
+        """
+        df = pd.read_csv(self.stock_path)
+        df_tmp = df[df.name.str.contains(company_name)]
+
+        if df_tmp.empty:
+            df_tmp2 = df[df.name.apply(self.is_contain_by, args=(company_name,))]
+            if df_tmp2.empty:
+                return None
+            return str(df_tmp2.sid.values[0])
+        else:
+            return str(df_tmp.sid.values[0])
+
+    def get_company_name(self):
+        """ get company name content """
+        df = pd.read_csv(self.stock_path)
+        sh_ser = df[df.sid.str.contains("sh")].iloc[:1000, 1]
+        sz_ser = df[df.sid.str.contains("sz")].iloc[:500, 1]
+        hk_ser = df[df.sid.str.contains("hk")].iloc[:500, 1]
+        us_ser = df[~df.sid.str.contains("hk|sh|sz")].iloc[:500, 1]
+
+        ser = sh_ser.append([sz_ser, hk_ser, us_ser])
+        return "\n".join(ser.values)
+
 
 if __name__ == "__main__":
     tool = Tool()
@@ -53,5 +85,7 @@ if __name__ == "__main__":
     name = tool.get_world_index_name()
     print(name)
 
-
-
+    id2 = tool.convert_company_id("互联医疗")
+    print(type(id2), id2)
+    name2 = tool.get_company_name()
+    print(name2)
