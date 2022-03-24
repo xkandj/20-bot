@@ -9,8 +9,10 @@ from actions.dt import ass_dt
 from actions.finance.stock import Stock, StockHistory
 from actions.finance.tool import Tool
 from actions.finance.world_index import WorldIndex, WorldIndexHistory
-from actions.utils.create_log import logger
+from actions.log_utils import get_fmpc_logger
 from actions.weather import seniverse
+
+logger = get_fmpc_logger(__name__)
 
 
 class ActionTellDate(Action):
@@ -163,8 +165,6 @@ class ActionTellWeather(Action):
         return []
 
 
-
-
 class ActionCalculate(Action):
     def name(self) -> Text:
         return "action_calculate"
@@ -186,7 +186,6 @@ class ActionCalculate(Action):
             dispatcher.utter_message(text="无法计算出结果，请检查输入是否合法")
 
         return []
-
 
 
 class QueryWorldIndex(Action):
@@ -243,6 +242,7 @@ class QueryWorldIndex(Action):
 
         dispatcher.utter_message(text=response_text)
         return []
+
 
 class QueryStock(Action):
     def name(self) -> Text:

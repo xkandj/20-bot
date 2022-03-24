@@ -1,4 +1,5 @@
 import os
 
-# actions folder path
 ACTIONS_PATH = os.path.dirname(__file__)
+
+DEFAULT_TIMEOUT = 2

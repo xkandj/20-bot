@@ -1,7 +1,6 @@
 import pyswan
-import re
 
-print(123123)
+
 def calculate_mathematic_equation(equation):
     equations = pyswan.parse(equation, dim=['equation'])
     res = []

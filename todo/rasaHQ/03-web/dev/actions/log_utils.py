@@ -1,23 +1,13 @@
-"""
-日志类。通过读取配置文件，定义日志级别、日志文件名、日志格式等。
-一般直接把logger import进去
-from utils.log import logger
-logger.info('test log')
-"""
-import os
 import logging
+import os
 import sys
 
 from concurrent_log import ConcurrentTimedRotatingFileHandler
 
-curr_dir = os.path.dirname(__file__)
-BASEDIR = os.path.dirname(os.path.dirname(curr_dir))
-
-path = os.path.join(BASEDIR, "logs")
+_log_level = "INFO"
+path = os.path.join(os.path.dirname(__file__), "logs")
 if not os.path.exists(path):
     os.makedirs(path)
-
-_log_level = "INFO"
 
 
 class Logger:
