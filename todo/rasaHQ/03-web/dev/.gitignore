@@ -3,3 +3,6 @@ venv
 __pycache__
 
 .venv
+actions/logs/
+actions/__pycache__/
+actions/api/__pycache__/
